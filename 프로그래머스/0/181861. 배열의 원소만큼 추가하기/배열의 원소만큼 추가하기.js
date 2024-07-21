@@ -1,3 +1,3 @@
 function solution(arr) {
-    return arr.reduce((acc, cur) => acc.concat(Array(cur).fill(cur)), []);
+    return arr.map(v=>Array(v).fill(v)).flat()
 }
