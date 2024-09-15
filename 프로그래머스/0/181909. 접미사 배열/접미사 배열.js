@@ -3,5 +3,5 @@ function solution(my_string) {
     for (let i = 0; i < my_string.length; i++) {
         result.push(my_string.slice(i));
     }
-    return result.sort((a,b) => a.localeCompare(b))
+    return result.sort()
 }
