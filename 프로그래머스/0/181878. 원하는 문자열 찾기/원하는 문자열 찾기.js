@@ -1,5 +1,3 @@
 function solution(myString, pat) {
-    const myStringUpperCase = myString.toUpperCase();
-    const patUpperCase = pat.toUpperCase()
-    return myStringUpperCase.includes(patUpperCase) ? 1 : 0;
+    return myString.toUpperCase().includes(pat.toUpperCase()) ? 1 : 0;
 }
