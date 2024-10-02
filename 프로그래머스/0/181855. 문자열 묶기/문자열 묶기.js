@@ -1,11 +1,14 @@
 function solution(strArr) {
-    const lengthCount = {};
-    
-    strArr.forEach((str) => {
-        const length = str.length;
-        if(lengthCount[length]) lengthCount[length]++;
-        else lengthCount[length] = 1;
+    const lengthMap = new Map();
+
+    strArr.forEach(str => {
+        const len = str.length;
+        if (lengthMap.has(len)) {
+            lengthMap.set(len, lengthMap.get(len) + 1);
+        } else {
+            lengthMap.set(len, 1);
+        }
     });
-    
-    return Math.max(...Object.values(lengthCount));
+
+    return Math.max(...lengthMap.values());
 }
