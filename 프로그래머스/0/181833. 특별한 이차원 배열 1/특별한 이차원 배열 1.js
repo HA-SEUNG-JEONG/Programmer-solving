@@ -1,5 +1,5 @@
 function solution(n) {
-      const answer = [];
+    const answer = [];
 
     for (let i = 0; i < n; i++) {
         let row = new Array(n).fill(0);  
