@@ -1,6 +1,5 @@
 function solution(name, yearning, photo) {
-        const scoreMap = new Map(name.map((n, i) => [n, yearning[i]]));
-    
+    const scoreMap = new Map(name.map((n, i) => [n, yearning[i]]));
     return photo.map(people => {
         let score = 0;
         for (let person of people) {
@@ -8,4 +7,4 @@ function solution(name, yearning, photo) {
         }
         return score;
     });
-}
+} 
