@@ -5,4 +5,6 @@ function solution(a, b) {
         result += a[i]*b[i]
     }
     return result;
+    // reduce로 하는 방법
+    // return a.reduce((acc, _, i) => acc += a[i] * b[i], 0);
 }
