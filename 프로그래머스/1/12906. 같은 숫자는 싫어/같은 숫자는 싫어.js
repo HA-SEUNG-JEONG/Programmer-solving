@@ -7,4 +7,7 @@ function solution(arr)
         }
     }
     return result;
+    
+    // 다른풀이  
+    // return arr.filter((val,index) => val != arr[index+1]);
 }
