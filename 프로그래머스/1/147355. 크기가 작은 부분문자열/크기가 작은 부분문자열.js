@@ -5,7 +5,7 @@ function solution(t, p) {
     for(let i=0; i<=t.length-length; i++){
         const subStr = t.slice(i,i+length);
         
-        if(Number(subStr) <= Number(p)){
+        if(subStr <= p){
             result++;
         }
     }
