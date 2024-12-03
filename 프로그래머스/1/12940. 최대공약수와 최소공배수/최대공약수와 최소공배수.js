@@ -1,27 +1,17 @@
 function solution(n, m) {
-    const getGCD = (num1,num2) => {
-        let gcd = 1;
-
-        for(let i=2; i<=Math.min(num1, num2); i++){
-            if(num1 % i === 0 && num2 % i === 0){
-                gcd = i;
-            }
+    const gcd = (a, b) => {
+        while (b !== 0) {
+            let temp = b;
+            b = a % b;
+            a = temp;
         }
+        return a;
+    };
 
-        return gcd;
-    }
-    
-    const getLCM = (num1,num2) => {
-        let lcm = 1;
-   
-        while(true){
-          if((lcm % num1 == 0) && (lcm % num2 == 0)){
-            break;
-          }
-          lcm++;
-        }
-        return lcm
-    }
-    
-    return [getGCD(n,m),getLCM(n,m)]
+    const lcm = (a, b) => (a * b) / gcd(a, b);
+
+    const greatestCommonDivisor = gcd(n, m);
+    const leastCommonMultiple = lcm(n, m);
+
+    return [greatestCommonDivisor, leastCommonMultiple];
 }
