@@ -1,16 +1,22 @@
 function solution(number) {
+    // 해시 테이블
     let count = 0;
     const n = number.length;
     
-    for (let i = 0; i < n - 2; i++) {
-        for (let j = i + 1; j < n - 1; j++) {
-            for (let k = j + 1; k < n; k++) {
-                if (number[i] + number[j] + number[k] === 0) {
-                    count++;
-                }
+    // 조합을 찾는 재귀 함수
+    function findCombination(current, start, sum) {
+        if (current === 3) {
+            if (sum === 0) {
+                count++;
             }
+            return;
+        }
+        
+        for (let i = start; i < n; i++) {
+            findCombination(current + 1, i + 1, sum + number[i]);
         }
     }
     
+    findCombination(0, 0, 0);
     return count;
 }
