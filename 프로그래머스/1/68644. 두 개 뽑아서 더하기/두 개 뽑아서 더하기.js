@@ -9,5 +9,5 @@ function solution(numbers) {
             result.add(numbers[i]+numbers[j])
         }
     }
-    return Array.from(result).sort((a,b) => a-b);
+    return [...result].sort((a,b) => a-b);
 }
