@@ -12,6 +12,6 @@ function solution(k, scores) {
         if(result.length > k){
             result.pop();
         }
-        return result[result.length-1]
+        return result[result.length-1];
     })
 }
