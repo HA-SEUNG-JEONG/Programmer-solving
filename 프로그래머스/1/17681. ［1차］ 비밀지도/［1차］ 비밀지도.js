@@ -4,21 +4,21 @@ function solution(n, arr1, arr2) {
     const answer = [];
     
     for (let i = 0; i < n; i++) {
-        let binary1 = arr1[i].toString(2);
-        let binary2 = arr2[i].toString(2);
+        // 비트 OR 연산으로 두 지도 합치기
+        const combinedRow = arr1[i] | arr2[i];
+        console.log(combinedRow)
         
-        binary1 = binary1.padStart(n, '0');
-        binary2 = binary2.padStart(n, '0');
+        // 2진수 변환 후 패딩
+        let binaryStr = combinedRow.toString(2).padStart(n, '0');
         
-        let row = '';
-        
+        // 문자열 변환
+        let decodedRow = '';
         for (let j = 0; j < n; j++) {
-            row += (binary1[j] === '1' || binary2[j] === '1') ? '#' : ' ';
+            decodedRow += binaryStr[j] === '1' ? '#' : ' ';
         }
         
-        answer.push(row);
+        answer.push(decodedRow);
     }
     
     return answer;
-
 }
