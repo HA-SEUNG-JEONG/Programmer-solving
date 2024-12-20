@@ -9,7 +9,9 @@ function solution(cards1, cards2, goal) {
         else if(index2 < cards2.length && cards2[index2] === word){
             index2++;
         }
-        else return 'No'
+        else {
+            return 'No';
+        }
     }
     return 'Yes';
 }
