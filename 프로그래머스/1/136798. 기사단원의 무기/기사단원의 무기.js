@@ -1,17 +1,13 @@
 function divisor(num){
     const answer = [];
-    for(let i = 1; i<= Math.sqrt(num); i++){
-        if(num % i == 0){
+    for (let i = 1; i <= Math.sqrt(num); i++) {
+        if (num % i == 0) {
             answer.push(i);
-            if( i * i != num){
+            if (i * i != num) {
                 answer.push(num / i);
             }
         }
     }
-    answer.sort(function(a,b){
-        return a - b;
-    })
-    
     return answer.length;
 }
 function solution(number, limit, power) {
