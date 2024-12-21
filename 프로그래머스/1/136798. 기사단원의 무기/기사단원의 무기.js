@@ -1,21 +1,20 @@
-function divisor(num){
-    const answer = [];
-    for (let i = 1; i <= Math.sqrt(num); i++) {
-        if (num % i == 0) {
-            answer.push(i);
-            if (i * i != num) {
-                answer.push(num / i);
-            }
+
+function solution(number, limit, power) {
+    const divisorCounts = new Array(number + 1).fill(1);
+    for (let i = 2; i <= number; i++) {
+        for (let j = i; j <= number; j += i) {
+            divisorCounts[j]++;
         }
     }
-    return answer.length;
-}
-function solution(number, limit, power) {
-    let total = 0;
-    for(let i=1; i<=number; i++){
-        let divisorCount = divisor(i);
-        if (divisorCount > limit) total+=power;
-        else total += divisorCount;
+    // 공격력 계산 및 철의 무게 합산
+    let totalWeight = 0;
+    for (let i = 1; i <= number; i++) {
+        if (divisorCounts[i] > limit) {
+            totalWeight += power;
+        } else {
+            totalWeight += divisorCounts[i];
+        }
     }
-    return total;
+    
+    return totalWeight;
 }
