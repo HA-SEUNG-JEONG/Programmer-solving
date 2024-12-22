@@ -7,12 +7,12 @@ function solution(answers) {
     
     const score = [0,0,0]
     
-    for (let index = 0; index < answers.length; index++) {
-        const answer = answers[index];
-        for (let i = 0; i < patterns.length; i++) {
-            const pattern = patterns[i];
-            if (answer === pattern[index % pattern.length]) {
-                score[i]++;
+    for (let i = 0; i < answers.length; i++) {
+        const answer = answers[i];
+        for (let j = 0; j < patterns.length; j++) {
+            const pattern = patterns[j];
+            if (answer === pattern[i % pattern.length]) {
+                score[j]++;
             }
         }
     }
