@@ -1,26 +1,19 @@
+const isPrime = num => {
+    for(let i = 2, s = Math.sqrt(num); i <= s; i++) {
+        if(num % i === 0) return false;
+    }
+    return num > 1;
+}
+
 function solution(nums) {
- const findAllSums = (nums) => {
-    const result = [];
-    for (let i = 0; i < nums.length - 2; i++) {
-      for (let j = i + 1; j < nums.length - 1; j++) {
-        for (let k = j + 1; k < nums.length; k++) {
-          result.push(nums[i] + nums[j] + nums[k]);
+    let result = 0;
+    nums.sort((a,b) => a-b);
+    for(let i=0;i<nums.length;i++){
+        for(let j=i+1;j<nums.length;j++){
+            for(let k=j+1;k<nums.length;k++){
+                if(isPrime(nums[i]+nums[j]+nums[k])) result++;
+            }
         }
-      }
     }
     return result;
-  };
-
-  const isPrime = (n) => {
-    if (n <= 1) return false;
-    if (n <= 3) return true;
-    if (n % 2 === 0 || n % 3 === 0) return false;
-    for (let i = 5; i * i <= n; i += 6) {
-      if (n % i === 0 || n % (i + 2) === 0) return false;
-    }
-    return true;
-  };
-
-  const sums = findAllSums(nums);
-  return sums.filter(isPrime).length;
 }
