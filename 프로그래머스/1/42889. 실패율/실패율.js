@@ -4,17 +4,12 @@ function solution(N, stages) {
     // 실패율이 같은 스테이지가 있다면 작은 번호의 스테이지가 먼저 오도록
     // 스테이지에 도달한 유저가 없는 경우 해당 스테이지의 실패율은 0
     
-    const failureRateArr = [];
-    let totalPlayers = stages.length;
-    
-    for(let i=1;i<=N;i++){
-        const failedPlayers = stages.filter(stage => stage === i).length;
-        
-        const failureRate = totalPlayers === 0 ? 0 : failedPlayers / totalPlayers;
-        
-        failureRateArr.push([i,failureRate]);
-        totalPlayers -= failedPlayers;
+    let result = [];
+    for(let i=1; i<=N; i++){
+        let reach = stages.filter((x) => x >= i).length;
+        let curr = stages.filter((x) => x === i).length;
+        result.push([i, curr/reach]);
     }
-    
-    return failureRateArr.sort((a,b) => b[1] - a[1] || a[0] - b[0]).map(x => x[0])
+    result.sort((a,b) => b[1] - a[1]);
+    return result.map((x) => x[0]);
 }
