@@ -7,19 +7,13 @@ function solution(s, skip, index) {
         let count = 0;
         
         while(count < index){
-            // 다음 문자로 이동
-            code++;
-            // z를 넘어가면 a로 넘어가기
-            if(code > 122) code = 97;
-            
-            // 현재 코드를 문자로 변환
-            const nextChar = String.fromCharCode(code);
-            
-            // skip에 없는 문자만 카운트
-            if(!skipSet.has(nextChar)) count++;
+            code++; // 다음 문자로 이동
+            if(code > 122) code = 97; // z를 넘어가면 a로 넘어가기   
+            const nextChar = String.fromCharCode(code); // 현재 코드를 문자로 변환
+            if(!skipSet.has(nextChar)) count++; // skip에 없는 문자만 카운트
             
         }
-        return String.fromCharCode(code)
+        return String.fromCharCode(code);
     }
     
     return s.split('').map(getNextChar).join('')
