@@ -12,11 +12,15 @@ function solution(n, lost, reserve) {
     reserve.forEach(student => students[student-1]++);
     
     for(let i=0;i<n;i++){
+        // 학생이 체육복이 없는 경우
         if(students[i]===0){
+            // 앞 번호 학생에게서 체육복을 빌릴 수 있는지 확인
             if(i>0 && students[i-1]>1){
                 students[i]++;
                 students[i-1]--;
-            }else if(i<n-1 && students[i+1]>1){
+            }
+            // 뒷 번호 학생에게서 체육복을 빌릴 수 있는지 확인
+            else if(i<n-1 && students[i+1]>1){
                 students[i]++;
                 students[i+1]--;
             }
