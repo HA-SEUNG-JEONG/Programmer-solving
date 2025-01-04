@@ -15,27 +15,23 @@ function solution(X, Y) {
 // });
 //    return intersection.sort((a,b) => b-a).join('')
     
-    const freq = new Map();
+    
+    const numCount = Array(10).fill(0);
+    const yCount = Array(10).fill(0);
+    
+    [...X].forEach(n => numCount[n]++);
+    [...Y].forEach(n => yCount[n]++);
+    
     const result = [];
-
-    // X의 각 숫자 빈도수 계산
-    for (const num of X) {
-        freq.set(num, (freq.get(num) || 0) + 1);
-    }
-
-    // Y와 비교하며 공통 숫자 찾기
-    for (const num of Y) {
-        if (freq.get(num) > 0) {
-            result.push(num);
-            freq.set(num, freq.get(num) - 1);
+    for(let i=0;i<10;i++){
+        const count = Math.min(numCount[i],yCount[i]);
+        for(let j=0;j<count;j++){
+            result.push(i);
         }
     }
-
-    // 결과 처리
-    if (result.length === 0) return "-1";
     
-    result.sort((a, b) => b - a);
+    if(result.length === 0) return '-1';
     
-    // 0으로만 구성된 경우 처리
-    return result[0] === "0" ? "0" : result.join("");
+    const answer = result.sort((a,b) => b-a).join('');
+    return answer[0] === '0' ? '0' : answer
 }
