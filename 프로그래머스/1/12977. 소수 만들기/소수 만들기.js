@@ -7,7 +7,7 @@ const isPrime = num => {
 
 function solution(nums) {
     let result = 0;
-    nums.sort((a,b) => a-b);
+    // nums.sort((a,b) => a-b);
     for(let i=0;i<nums.length;i++){
         for(let j=i+1;j<nums.length;j++){
             for(let k=j+1;k<nums.length;k++){
