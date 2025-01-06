@@ -23,7 +23,6 @@ function solution(board, moves) {
         const col = move - 1;
         for(let i=0; i<board.length;i++){
             if(board[i][col] !== 0){
-                console.log(board[i][col])
                 const doll = board[i][col];
                 board[i][col]=0;
                 
