@@ -52,24 +52,18 @@ function solution(new_id) {
     // 3단계: 연속된 마침표를 하나로 치환
     temp = '';
     for (let i = 0; i < result.length; i++) {
-        if (!(result[i] === '.' && result[i + 1] === '.')) {
-            temp += result[i];
-        }
+        if (!(result[i] === '.' && result[i + 1] === '.')) temp += result[i];
     }
     result = temp;
     
     // 4단계: 처음과 끝의 마침표 제거
-    if (result[0] === '.') {
-        result = result.slice(1);
-    }
-    if (result[result.length - 1] === '.') {
-        result = result.slice(0, -1);
-    }
+    if (result[0] === '.')  result = result.slice(1);
+    
+    if (result[result.length - 1] === '.') result = result.slice(0, -1);
     
     // 5단계: 빈 문자열이면 'a' 대입
-    if (result === '') {
-        result = 'a';
-    }
+    if (result === '') result = 'a';
+
     
     // 6단계: 길이가 16자 이상이면 15자로 자르기
     if (result.length >= 16) {
