@@ -38,6 +38,7 @@ function solution(new_id) {
     
     let result = new_id.toLowerCase();
     
+    // 2단계: 허용된 문자만 남기기
     const allowedChars = '1234567890abcdefghijklmnopqrstuvwxyz-_.';
     let temp = '';
     
@@ -48,6 +49,7 @@ function solution(new_id) {
     }
     result = temp;
     
+    // 3단계: 연속된 마침표를 하나로 치환
     temp = '';
     for (let i = 0; i < result.length; i++) {
         if (!(result[i] === '.' && result[i + 1] === '.')) {
