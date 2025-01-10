@@ -1,30 +1,48 @@
-function isStack(str){
-    const stack = [];
-    const pairs = {')': '(', ']': '[', '}': '{'};
-    for(const c of str){
-        if(c === '(' || c === '[' || c === '{'){
-            stack.push(c);
-        }else if(c === ')' || c === ']' || c === '}'){
-            if(stack.length === 0){
-                return false;
-            }
-            const last = stack.pop();
-            if(pairs[c] !== last) return false;
-        }
-    }
-    return stack.length === 0;
-}
+
 
 function solution(s) {
-    let count = 0;
-    // 회전하는 횟수마다 첫번째 요소를 맨 뒤로 보낸다
-    // 첫 번째 요소를 제거 후(unshift), 제거된 요소를 push
-    let result = s;
-    
-    for(let i=0;i<s.length;i++){
-        result = result.slice(1)+result[0];
-        if(isStack(result)) count++;
+  const n = s.length;
+  let answer = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    const stack = [];
+
+    let isCorrect = true;
+    for (let j = 0; j < n; j++) {
+      // ➊ 괄호 문자열을 회전시키면서 참조
+      const c = s[(i + j) % n];
+
+      if (c === "[" || c === "(" || c === "{") {
+        // ➋ 열린 괄호는 푸시
+        stack.push(c);
+      } else {
+        if (stack.length === 0) {
+          // ➌ 여는 괄호가 없는 경우
+          isCorrect = false;
+          break;
+        }
+
+        // ➍ 닫힌 괄호는 스택의 top과 짝이 맞는지 비교
+        const top = stack[stack.length - 1];
+        if (c === "]" && top === "[") {
+          stack.pop();
+        } else if (c === ")" && top === "(") {
+          stack.pop();
+        } else if (c === "}" && top === "{") {
+          stack.pop();
+        } else {
+          isCorrect = false;
+          break;
+        }
+      }
     }
-    return count;
+
+    // ➎ 모든 괄호의 짝이 맞는 경우
+    if (isCorrect && stack.length === 0) {
+      answer += 1;
+    }
+  }
+
+  return answer;
 
 }
