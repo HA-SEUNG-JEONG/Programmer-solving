@@ -16,25 +16,47 @@ function solution(players, callings) {
     // const f = players.some((player,index) => player === callings[index]);
     // console.log(f)
     
-    const playerMap = {};
+//     const playerMap = {};
     
-    players.forEach((player,index) => {
-        playerMap[player] = index;
-    })
+//     players.forEach((player,index) => {
+//         playerMap[player] = index;
+//     })
     
-    callings.forEach(calling => {
-        const currentIndex = playerMap[calling]; // callngs의 현재 위치
-        const frontPlayer = players[currentIndex - 1]; // 자기보다 앞에 있는 플레이어
+//     callings.forEach(calling => {
+//         const currentIndex = playerMap[calling]; // callngs의 현재 위치
+//         const frontPlayer = players[currentIndex - 1]; // 자기보다 앞에 있는 플레이어
         
-        // 위치 교환 
-        // 나는 callings에 불린 사람이 있으면 count를 감소시키는 것으로 생각했음..
-        players[currentIndex - 1] = calling;
-        players[currentIndex] = frontPlayer;
+//         // 위치 교환 
+//         // 나는 callings에 불린 사람이 있으면 count를 감소시키는 것으로 생각했음..
+//         players[currentIndex - 1] = calling;
+//         players[currentIndex] = frontPlayer;
+        
+//         // 해시맵 업데이트
+//         playerMap[calling] = currentIndex - 1;
+//         playerMap[frontPlayer] = currentIndex;
+
+//     });
+//     return players;
+
+const playerMap = {};
+    
+    // 초기 위치 기록
+    players.forEach((player, index) => {
+        playerMap[player] = index;
+    });
+    
+    // 호출될 때마다 위치 갱신
+    callings.forEach(player => {
+        const currentIdx = playerMap[player];
+        const frontPlayer = players[currentIdx - 1];
+        
+        // 배열에서 위치 교환
+        [players[currentIdx - 1], players[currentIdx]] = [player, frontPlayer];
         
         // 해시맵 업데이트
-        playerMap[calling] = currentIndex - 1;
-        playerMap[frontPlayer] = currentIndex;
-
+        playerMap[player] = currentIdx - 1;
+        playerMap[frontPlayer] = currentIdx;
     });
+    
     return players;
 }
