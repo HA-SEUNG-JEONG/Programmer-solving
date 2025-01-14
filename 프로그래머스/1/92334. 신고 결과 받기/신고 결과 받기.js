@@ -10,31 +10,61 @@ function solution(id_list, report, k) {
     
     // 유저ID(key)와 신고횟수(value)를 담을 객체 필요
     
-    const reportMap = new Map();
-    const mailCount = new Map()
+//     const reportMap = new Map();
+//     const mailCount = new Map()
+    
+//     id_list.forEach(id => {
+//         reportMap.set(id, new Set());
+//         mailCount.set(id,0)
+//     })
+    
+//     report.forEach((rep) => {
+//         const [userId, reportId] = rep.split(' '); // userId가 reportId를 신고
+//         // 신고를 한 경우 해당 신고를 한 userId를 키로 담아서 value 카운트..
+
+//         reportMap.get(reportId).add(userId)
+//     });
+    
+    
+//     reportMap.forEach((report,userId) => {
+//         if(report.size >= k){
+//             report.forEach(reporter => {
+//                 mailCount.set(reporter,mailCount.get(reporter)+1);
+//             });
+//         }
+//     })
+    
+//     return id_list.map(id => mailCount.get(id))
+    
+     const reports = {};
+    const counts = {};
+    const mails = {};
     
     id_list.forEach(id => {
-        reportMap.set(id, new Set());
-        mailCount.set(id,0)
-    })
-    
-    report.forEach((rep) => {
-        const [userId, reportId] = rep.split(' '); // userId가 reportId를 신고
-        // 신고를 한 경우 해당 신고를 한 userId를 키로 담아서 value 카운트..
-
-        reportMap.get(reportId).add(userId)
+        reports[id] = new Set();
+        counts[id] = 0;
+        mails[id] = 0;
     });
     
-    
-    reportMap.forEach((report,userId) => {
-        if(report.size >= k){
-            report.forEach(reporter => {
-                mailCount.set(reporter,mailCount.get(reporter)+1);
-            });
+    report.forEach(r => {
+        const [reporter, reported] = r.split(' ');
+        if (!reports[reporter].has(reported)) {
+            reports[reporter].add(reported);
+            counts[reported]++;
         }
-    })
+    });
     
-    return id_list.map(id => mailCount.get(id))
+    for (const id in counts) {
+        if (counts[id] >= k) {
+            for (const reporter in reports) {
+                if (reports[reporter].has(id)) {
+                    mails[reporter]++;
+                }
+            }
+        }
+    }
+    
+    return id_list.map(id => mails[id]);
     
 
 }
