@@ -45,6 +45,7 @@ function solution(video_len, pos, op_start, op_end, commands) {
         return Number(h) * 60 + Number(m)
     };
     
+    // 모든 시간을 분으로 변환
     let currentPos = secondsToTime(pos);
     const currentPosStart = secondsToTime(op_start);
     const currentPosEnd = secondsToTime(op_end)
