@@ -32,9 +32,10 @@ function solution(n, k, cmd) {
             // 이전 행과 다음 행 연결
             if (linkedList.up[curIndex] >= 0) {
                 linkedList.down[linkedList.up[curIndex]] = linkedList.down[curIndex];
+                linkedList.up[linkedList.down[curIndex]] = linkedList.up[curIndex];
             }
             if (linkedList.down[curIndex] >= 0) {
-                linkedList.up[linkedList.down[curIndex]] = linkedList.up[curIndex];
+                
             }
             
             // 다음 선택할 행 결정
