@@ -15,6 +15,7 @@ function solution(friends, gifts) {
     const giftHistory = {}
     const giftIndex = {}
     
+    // 초기화
     friends.forEach(friend => {
         giftHistory[friend] = {};
         friends.forEach(f => {
@@ -25,13 +26,14 @@ function solution(friends, gifts) {
         giftIndex[friend] = { given: 0, taken: 0 };
     })
 
-    
+    // 선물 기록 처리
     gifts.forEach(gift => {
         const [giver, receiver] = gift.split(' ');
         giftHistory[giver][receiver] = (giftHistory[giver][receiver] || 0) + 1;
         giftIndex[giver].given++;
         giftIndex[receiver].taken++;
     });
+    
     
     // 다음 달 선물 받을 개수 계산
     const nextMonthGifts = {};
@@ -42,7 +44,7 @@ function solution(friends, gifts) {
         for (let j = i + 1; j < friends.length; j++) {
             const friendA = friends[i];
             const friendB = friends[j];
-            
+
             const aToB = giftHistory[friendA][friendB] || 0;
             const bToA = giftHistory[friendB][friendA] || 0;
             
