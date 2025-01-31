@@ -1,22 +1,26 @@
-function solution(participants, completion) {
-    // participant : 마라톤에 참여한 선수들의 이름이 담긴 배열
-    // completion : 완주한 선수들의 이름이 담긴 배열
+function solution(participant, completion) {
+    // 완주자의 이름을 참여자에서 바로 찾을 수 있는 방법
+//     const playerMap = new Map();
     
-    // 참가자 이름은 알파벳 소문자로 구성
-    const participantsMap = new Map();
+//     participant.forEach(part => playerMap.set(part,(playerMap.get(part) || 0) + 1));
+//     completion.forEach(complete => playerMap.set(complete, playerMap.get(complete) -1));
     
-    for (const participant of participants) {
-        participantsMap.set(participant, (participantsMap.get(participant) || 0) + 1);
+//     for(let [player, count] of playerMap){
+//         if(count > 0) return player;
+//     }
+    const obj = {};
+    
+    for(const p of participant){
+        if(obj[p]) obj[p]++;
+        else obj[p] = 1;
     }
     
-     for (const player of completion) {
-        const count = participantsMap.get(player);
-        if (count === 1) {
-            participantsMap.delete(player);
-        } else {
-            participantsMap.set(player, count - 1);
-        }
-     }
+    for(const c of completion){
+        obj[c]--;
+    }
     
-    return [...participantsMap.keys()][0];
-}
+    for(const key in obj){
+        if(obj[key]) return key;
+    }
+
+ }
