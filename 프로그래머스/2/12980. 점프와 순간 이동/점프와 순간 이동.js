@@ -15,12 +15,13 @@ function solution(n)
     
     // return을 어떤식으로...? Math.min..? 걍 fuelCount로?
     
-    while(n > 0){
-        if(n % 2 === 1){
-            fuelCount++;
-            n--;
-        }
-        n /=2;
-    }
-    return fuelCount;
+    // while(n > 0){
+    //     if(n % 2 === 1){
+    //         fuelCount++;
+    //         n--;
+    //     }
+    //     n /=2;
+    // }
+    // return fuelCount;
+    return n.toString(2).split('1').length - 1;
 }
