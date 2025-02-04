@@ -1,13 +1,16 @@
-const getGCD = (num1,num2) => {
-        let gcd = 1;
-        for(let i=2; i<=Math.min(num1, num2); i++){
-            if(num1 % i === 0 && num2 % i === 0){
-                gcd = i;
-            }
-        }
-        return gcd;
+function getGCD(a, b) {
+    while (b > 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
     }
+    return a;
+}
+
+function getLCM(a, b) {
+    return (a * b) / getGCD(a, b);
+}
 
 function solution(arr) {
-    return arr.reduce((acc,cur) => acc * cur / getGCD(acc,cur));
+    return arr.reduce((acc, cur) => getLCM(acc, cur));
 }
