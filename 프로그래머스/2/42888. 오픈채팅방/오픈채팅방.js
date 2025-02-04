@@ -15,23 +15,36 @@ function solution(record) {
     
     // Leave일 때는 데이터 추가 X
     
-    const result = [];
-    const uid = {};
+//     const result = [];
+//     const uid = {};
     
-    for(const line in record){
-        const cmd = record[line].split(' ');
-        if(cmd[0] !== 'Leave') uid[cmd[1]] = cmd[2];
-    }
+//     for(const line in record){
+//         const cmd = record[line].split(' ');
+//         if(cmd[0] !== 'Leave') uid[cmd[1]] = cmd[2];
+//     }
     
-    for(const line in record){
-        const cmd = record[line].split(' ');
-        if(cmd[0] === "Enter"){
-            result.push(uid[cmd[1]] + '님이 들어왔습니다.');
-        }else if(cmd[0] === "Leave"){
-            result.push(uid[cmd[1]] + '님이 나갔습니다.')
-        }
-    }
+//     for(const line in record){
+//         const cmd = record[line].split(' ');
+//         if(cmd[0] === "Enter"){
+//             result.push(uid[cmd[1]] + '님이 들어왔습니다.');
+//         }else if(cmd[0] === "Leave"){
+//             result.push(uid[cmd[1]] + '님이 나갔습니다.')
+//         }
+//     }
     
-    return result;
+//     return result;
+    
+    const answer = [];
+    const users = {};
+    record.map(history => {
+        const [action, id, name] = history.split(' ')
+        if (action !== 'Leave') users[id] = name;
+    })
+    record.map(history => {
+        const [action, id, name] = history.split(' ');
+        if (action === 'Enter') answer.push(`${users[id]}님이 들어왔습니다.`);
+        if (action === 'Leave') answer.push(`${users[id]}님이 나갔습니다.`);
+    })
+    return answer;
     
 }
