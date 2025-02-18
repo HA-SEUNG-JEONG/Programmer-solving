@@ -22,14 +22,22 @@ function solution(elements) {
 //         }
 //     }
 //     return result.size;
-    const circular = elements.concat(elements);
-    const set = new Set();
-    for (let i = 0; i < elements.length; i++) {
-        let sum = 0;
-        for (let j = 0; j < elements.length; j++) {
-            sum += circular[i + j];
-            set.add(sum);
+    
+    const result = new Set();
+    const doubleElements = [...elements, ...elements];
+    const length = elements.length;
+    const prefixSum = new Array(2 * length + 1).fill(0);
+
+    for (let i = 1; i <= 2 * length; i++) {
+        prefixSum[i] = prefixSum[i - 1] + doubleElements[i - 1];
+    }
+
+    for (let i = 1; i <= length; i++) {
+        for (let j = 0; j < length; j++) {
+            const sum = prefixSum[j + i] - prefixSum[j];
+            result.add(sum);
         }
     }
-    return set.size;
+
+    return result.size;
 }
