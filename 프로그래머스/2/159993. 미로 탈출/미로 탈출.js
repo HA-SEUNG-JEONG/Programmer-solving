@@ -1,60 +1,83 @@
+// ➊ 이동 가능한 좌표인지 판단하는 함수
+function isValidMove(ny, nx, n, m, maps) {
+  return 0 <= ny && ny < n && 0 <= nx && nx < m && maps[ny][nx] !== 'X';
+}
+
+// ➋ 방문한 적이 없으면 큐에 넣고 방문 여부 표시
+function appendToQueue(ny, nx, k, time, visited, queue) {
+  if (!visited[ny][nx][k]) {
+    visited[ny][nx][k] = true;
+    queue.push([ny, nx, k, time + 1]);
+  }
+}
+
+function createQueue() {
+  const queue = [];
+  return {
+    push(item) {
+      queue.push(item);
+    },
+    pop() {
+      return queue.shift();
+    },
+    isEmpty() {
+      return queue.length === 0;
+    }
+  };
+}
+
 function solution(maps) {
-  const rows = maps.length;
-  const cols = maps[0].length;
-  const directions = [[-1, 0], [1, 0], [0, -1], [0, 1]]; // 상, 하, 좌, 우
+  const n = maps.length;
+  const m = maps[0].length;
+  const visited = Array.from(Array(n), () => Array(m).fill(false).map(() => Array(2).fill(false)));
 
-  let start, exit, lever;
+  // ➍ 위, 아래, 왼쪽, 오른쪽 이동 방향
+  const dy = [-1, 1, 0, 0];
+  const dx = [0, 0, -1, 1];
+  const q = createQueue();
+  let endY = -1;
+  let endX = -1;
 
-  // 시작 지점(S)과 출구(E) 위치 찾기
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (maps[i][j] === 'S') start = [i, j];
-      if (maps[i][j] === 'L') lever = [i, j]
-      if (maps[i][j] === 'E') exit = [i, j];
+  // ➎ 시작점과 도착점을 찾아 큐에 넣고 방문 여부 표시
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      if (maps[i][j] === 'S') { // 시작점
+        q.push([i, j, 0, 0]);
+        visited[i][j][0] = true;
+      }
+      if (maps[i][j] === 'E') { // 도착점
+        endY = i;
+        endX = j;
+      }
     }
   }
-    
 
-  const bfs = (start, end) => {
-    if (start[0] === end[0] && start[1] === end[1]) return 0;
-    const queue = [[...start, 0]]; // [row, col, distance]
-    const visited = new Set([`${start[0]},${start[1]}`]);
+  while (!q.isEmpty()) {
+    const [y, x, k, time] = q.pop(); // ➏ 큐에서 좌표와 이동 횟수를 꺼냄
 
+    // ➐ 도착점에 도달하면 결과 반환
+    if (y === endY && x === endX && k === 1) {
+      return time;
+    }
 
-    while (queue.length > 0) {
-      const [row, col, dist] = queue.shift();
+    // ➑ 네 방향으로 이동
+    for (let i = 0; i < 4; i++) {
+      const ny = y + dy[i];
+      const nx = x + dx[i];
 
-      if (row === end[0] && col === end[1]) {
-        return dist;
+      // ➒ 이동 가능한 좌표인 때에만 큐에 넣음
+      if (!isValidMove(ny, nx, n, m, maps)) {
+        continue;
       }
 
-      for (const [dx, dy] of directions) {
-        const newRow = row + dx;
-        const newCol = col + dy;
-        const newPos = `${newRow},${newCol}`;
-
-        if (
-          newRow >= 0 && newRow < rows &&
-          newCol >= 0 && newCol < cols &&
-          maps[newRow][newCol] !== 'X' &&
-          !visited.has(newPos)
-        ) {
-          visited.add(newPos);
-          queue.push([newRow, newCol, dist + 1]);
-        }
+      // ➓ 다음 이동 지점이 물인 경우
+      if (maps[ny][nx] === 'L') {
+        appendToQueue(ny, nx, 1, time, visited, q);
+      } else { // ⓫ 다음 이동 지점이 물이 아닌 경우
+        appendToQueue(ny, nx, k, time, visited, q);
       }
     }
-    return -1;
-  };
-
-  // 시작 -> 레버까지의 최단 거리
-  const timeToLever = bfs(start, lever);
-  if (timeToLever === -1) return -1;
-
-  // 레버 -> 출구까지의 최단 거리
-  const timeToExit = bfs(lever, exit);
-  if (timeToExit === -1) return -1;
-
-  // 전체 소요 시간 = 시작->레버 + 레버->출구
-  return timeToLever + timeToExit;
+  }
+  // ⓬ 도착점에 도달하지 못한 경우
+  return -1;
 }
