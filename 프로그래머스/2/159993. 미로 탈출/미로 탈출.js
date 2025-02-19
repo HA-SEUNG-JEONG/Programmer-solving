@@ -16,8 +16,10 @@ function solution(maps) {
     
 
   const bfs = (start, end) => {
+    if (start[0] === end[0] && start[1] === end[1]) return 0;
     const queue = [[...start, 0]]; // [row, col, distance]
     const visited = new Set([`${start[0]},${start[1]}`]);
+
 
     while (queue.length > 0) {
       const [row, col, dist] = queue.shift();
