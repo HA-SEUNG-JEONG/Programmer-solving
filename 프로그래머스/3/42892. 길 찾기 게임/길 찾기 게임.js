@@ -1,16 +1,27 @@
 function buildTree(nodes) {
-        if (nodes.length === 0) return null;
+  if (nodes.length === 0) return null;
         const root = nodes[0];
-        const leftNodes = nodes.filter(node => node.x < root.x);
-        const rightNodes = nodes.filter(node => node.x > root.x);
-    
-     return {
-            x: root.x,
-            y: root.y,
-            num: root.num,
-            left: buildTree(leftNodes),
-            right: buildTree(rightNodes)
-        };
+        const tree = { x: root.x, y: root.y, num: root.num, left: null, right: null };
+
+        for (let i = 1; i < nodes.length; i++) {
+            let current = tree;
+            while (true) {
+                if (nodes[i].x < current.x) {
+                    if (current.left === null) {
+                        current.left = { x: nodes[i].x, y: nodes[i].y, num: nodes[i].num, left: null, right: null };
+                        break;
+                    }
+                    current = current.left;
+                } else {
+                    if (current.right === null) {
+                        current.right = { x: nodes[i].x, y: nodes[i].y, num: nodes[i].num, left: null, right: null };
+                        break;
+                    }
+                    current = current.right;
+                }
+            }
+        }
+        return tree;
 }
 
 function solution(nodeinfo) {
