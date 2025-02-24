@@ -38,21 +38,40 @@ function solution(nodeinfo) {
     const root = buildTree(nodes);
     
     // 전위 순회
-    function preorder(node, result = []) {
-        if (node) {
-            result.push(node.num);
-            preorder(node.left, result);
-            preorder(node.right, result);
+    function preorder(root) {
+        const result = [];
+        const stack = [root];
+        while (stack.length > 0) {
+            const node = stack.pop();
+            if (node) {
+                result.push(node.num);
+                stack.push(node.right);
+                stack.push(node.left);
+            }
         }
         return result;
     }
 
     // 후위 순회
-    function postorder(node, result = []) {
-        if (node) {
-            postorder(node.left, result);
-            postorder(node.right, result);
-            result.push(node.num);
+    function postorder(root) {
+        const result = [];
+        const stack = [];
+        let current = root;
+        let lastVisited = null;
+
+        while (current || stack.length > 0) {
+            if (current) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                const peekNode = stack[stack.length - 1];
+                if (peekNode.right && lastVisited !== peekNode.right) {
+                    current = peekNode.right;
+                } else {
+                    result.push(peekNode.num);
+                    lastVisited = stack.pop();
+                }
+            }
         }
         return result;
     }
