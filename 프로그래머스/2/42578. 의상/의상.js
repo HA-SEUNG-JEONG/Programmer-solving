@@ -14,4 +14,5 @@ function solution(clothes) {
         answer *= value + 1;
     }
     return answer - 1;
+
 }
