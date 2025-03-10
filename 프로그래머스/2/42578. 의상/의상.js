@@ -1,7 +1,7 @@
 function solution(clothes) {
   const map = new Map();
     clothes.forEach((cloth) => {
-        const [name, type] = cloth;
+        const [_, type] = cloth;
         if (map.has(type)) {
             map.set(type, map.get(type) + 1);
         } else {
