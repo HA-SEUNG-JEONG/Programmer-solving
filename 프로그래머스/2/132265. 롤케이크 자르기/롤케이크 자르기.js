@@ -1,31 +1,28 @@
 function solution(topping) {
     let result = 0;
-    const left = new Map();
-    const right = new Map();
+    const rightCount = new Map(); // 오른쪽 토핑 개수
+    const leftSet = new Set(); // 왼쪽 토핑 종류
+    let rightKinds = 0; // 오른쪽 토핑 종류 수
 
-    // 초기에는 모든 토핑을 right에 넣습니다
-    for (let i = 0; i < topping.length; i++) {
-        right.set(topping[i], (right.get(topping[i]) || 0) + 1);
+    // 초기 오른쪽 토핑 상태 설정
+    for (const t of topping) {
+        rightCount.set(t, (rightCount.get(t) || 0) + 1);
     }
+    rightKinds = rightCount.size;
 
+    // 토핑을 하나씩 왼쪽으로 이동
+    for (const t of topping) {
+        // 왼쪽에 토핑 추가
+        leftSet.add(t);
 
-    // 왼쪽으로 토핑을 하나씩 이동시키면서 비교
-    for (let i = 0; i < topping.length; i++) {
-        const currentTopping = topping[i];
-
-        // 왼쪽으로 토핑 이동
-        left.set(currentTopping, (left.get(currentTopping) || 0) + 1);
-        right.set(currentTopping, right.get(currentTopping) - 1);
-
-        // right에서 토핑이 0이 되면 제거
-        if (right.get(currentTopping) === 0) {
-            right.delete(currentTopping);
+        // 오른쪽 토핑 개수 감소
+        rightCount.set(t, rightCount.get(t) - 1);
+        if (rightCount.get(t) === 0) {
+            rightKinds--;
         }
 
-        // 토핑 종류 수가 같으면 결과 증가
-        if (left.size === right.size) {
-            result++;
-        }
+        // 양쪽의 토핑 종류 수가 같으면 결과 증가
+        if (leftSet.size === rightKinds) result++;
     }
 
     return result;
