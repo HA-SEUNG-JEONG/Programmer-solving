@@ -1,10 +1,13 @@
-function createMultiSet(str){
+function createMultiSet(str) {
     const set = {};
     for (let i = 0; i < str.length - 1; i++) {
+        
         const item = str.slice(i, i + 2).toLowerCase();
-        if (item.match(/^[a-z]+$/)) {
-            set[item] = (set[item] || 0) + 1;
-        }
+        
+        const isChar1 = "a".charCodeAt() <= item.charCodeAt(0) && item.charCodeAt(0) <= "z".charCodeAt();
+        const isChar2 = "a".charCodeAt() <= item.charCodeAt(1) && item.charCodeAt(1) <= "z".charCodeAt();
+        
+        if (isChar1 && isChar2) set[item] = (set[item] || 0) + 1;
     }
     return set;
 }
