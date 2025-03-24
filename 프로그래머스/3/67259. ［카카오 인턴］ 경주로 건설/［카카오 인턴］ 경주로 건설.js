@@ -8,7 +8,7 @@ function solution(board) {
     const N = board.length;
     const directions = [[0,1],[1,0],[0,-1],[-1,0]];
     
-    const costs = Array(N).fill().map(() => Array(N).fill().map(() => Array(4).fill(Infinity)));
+    const costs = Array.from({ length: N }, () => Array.from({ length: N }, () => Array(4).fill(Infinity)));
     
     for(let i=0;i<4;i++){
         costs[0][0][i]  = 0;
