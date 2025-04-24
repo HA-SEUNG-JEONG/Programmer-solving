@@ -1,16 +1,19 @@
 function solution(n, t, m, p) {
-    let res = ''
-    let num = 0
-    let seq = ''
-    while (res.length < t) {
-        if (seq.length >= m) {
-            res += seq[p - 1]
-            seq = seq.slice(m)
-        }
-        else {
-            seq += num.toString(n).toUpperCase()
-            num++
-        }
+  let answer = "";
+  let num = 0;
+  let turn = 1;
+
+  while (answer.length < t) {
+    const numStr = num.toString(n).toUpperCase();
+
+    for (let i = 0; i < numStr.length && answer.length < t; i++) {
+      if (turn === p) {
+        answer += numStr[i];
+      }
+      turn = turn === m ? 1 : turn + 1
     }
-    return res
+    num++;
+  }
+
+  return answer;
 }
