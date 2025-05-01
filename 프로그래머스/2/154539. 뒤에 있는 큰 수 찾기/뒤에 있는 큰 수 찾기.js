@@ -4,7 +4,7 @@ function solution(numbers) {
     const stack = [];
     
     for(let i=0;i<n;i++){
-        while(stack.length > 0 && numbers[stack.at(-1)] < numbers[i]) {
+        while(stack.length > 0 && numbers[stack[stack.length-1]] < numbers[i]) {
             arr[stack.pop()] = numbers[i];
         }
         stack.push(i)
