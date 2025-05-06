@@ -1,26 +1,36 @@
 function solution(msg) {
-    // 1. 길이가 1인 모든 단어를 포함하도록 사전을 초기화한다.
-  // 1-1. 영문 대문자 A~Z를 각각 1~26번 인덱스를 사전에 미리 등록
+ // 1. 영문 대문자 A~Z를 1~26번 인덱스로 사전 초기화
   const dictionary = new Map();
   for (let i = 0; i < 26; i++) {
     dictionary.set(String.fromCharCode(65 + i), i + 1);
   }
-  // 2. 사전에서 현재 입력과 일치하는 가장 긴 문자열 w를 찾는다.
-  let w = "";
-  let c = "";
+
   const result = [];
+  let dictSize = 27; // 다음에 추가될 색인 번호
+  let idx = 0; // 입력 문자열에서 현재 탐색 위치
 
-  for (let i = 0; i < msg.length; i++) {
-    c = msg[i];
+  while (idx < msg.length) {
+    let w = msg[idx];
+    let nextIdx = idx + 1;
 
-    if (dictionary.has(w + c)) {
-      w = w + c;
-    } else {
-      result.push(dictionary.get(w));
-      dictionary.set(w + c, dictionary.size + 1);
-      w = c;
+    // 사전에 있는 가장 긴 문자열 w 찾기
+    while (nextIdx <= msg.length && dictionary.has(msg.slice(idx, nextIdx))) {
+      w = msg.slice(idx, nextIdx);
+      nextIdx++;
     }
+
+    // w의 색인 번호 결과에 추가
+    result.push(dictionary.get(w));
+
+    // w 다음 글자가 있다면, w+c를 사전에 등록
+    if (nextIdx <= msg.length) {
+      const newEntry = msg.slice(idx, nextIdx);
+      dictionary.set(newEntry, dictSize++);
+    }
+
+    // idx를 w 다음 위치로 이동
+    idx += w.length;
   }
-  result.push(dictionary.get(w));
+
   return result;
 }
