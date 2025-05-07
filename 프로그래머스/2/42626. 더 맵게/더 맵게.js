@@ -1,77 +1,45 @@
-class MinHeap {
-  constructor() {
-    this.heap = [];
+function push(heap, value) {
+  heap.push(value);
+  let idx = heap.length - 1;
+  while (idx > 0) {
+    let parent = Math.floor((idx - 1) / 2);
+    if (heap[parent] > heap[idx]) {
+      [heap[parent], heap[idx]] = [heap[idx], heap[parent]];
+      idx = parent;
+    } else break;
   }
-  getParentIndex(i) {
-    return Math.floor((i - 1) / 2);
+}
+
+function pop(heap) {
+  if (heap.length === 1) return heap.pop();
+  const min = heap[0];
+  heap[0] = heap.pop();
+  let idx = 0;
+  while (true) {
+    let left = idx * 2 + 1;
+    let right = idx * 2 + 2;
+    let smallest = idx;
+    if (left < heap.length && heap[left] < heap[smallest]) smallest = left;
+    if (right < heap.length && heap[right] < heap[smallest]) smallest = right;
+    if (smallest !== idx) {
+      [heap[smallest], heap[idx]] = [heap[idx], heap[smallest]];
+      idx = smallest;
+    } else break;
   }
-  getLeftChildIndex(i) {
-    return i * 2 + 1;
-  }
-  getRightChildIndex(i) {
-    return i * 2 + 2;
-  }
-  swap(i, j) {
-    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
-  }
-  push(value) {
-    this.heap.push(value);
-    this.heapifyUp();
-  }
-  heapifyUp() {
-    let index = this.heap.length - 1;
-    while (index > 0) {
-      let parent = this.getParentIndex(index);
-      if (this.heap[parent] > this.heap[index]) {
-        this.swap(parent, index);
-        index = parent;
-      } else break;
-    }
-  }
-  pop() {
-    if (this.heap.length === 1) return this.heap.pop();
-    const min = this.heap[0];
-    this.heap[0] = this.heap.pop();
-    this.heapifyDown();
-    return min;
-  }
-  heapifyDown() {
-    let index = 0;
-    const length = this.heap.length;
-    while (this.getLeftChildIndex(index) < length) {
-      let left = this.getLeftChildIndex(index);
-      let right = this.getRightChildIndex(index);
-      let smaller = left;
-      if (right < length && this.heap[right] < this.heap[left]) {
-        smaller = right;
-      }
-      if (this.heap[index] > this.heap[smaller]) {
-        this.swap(index, smaller);
-        index = smaller;
-      } else break;
-    }
-  }
-  size() {
-    return this.heap.length;
-  }
-  peek() {
-    return this.heap[0];
-  }
+  return min;
 }
 
 function solution(scoville, K) {
-  const heap = new MinHeap();
-  for (let s of scoville) heap.push(s);
+
+  const heap = [];
+  for (let s of scoville) push(heap, s);
 
   let count = 0;
-  while (heap.size() > 1 && heap.peek() < K) {
-    const first = heap.pop();
-    const second = heap.pop();
-    const mixed = first + second * 2;
-    heap.push(mixed);
+  while (heap.length > 1 && heap[0] < K) {
+    const first = pop(heap);
+    const second = pop(heap);
+    push(heap, first + second * 2);
     count++;
   }
-  return heap.peek() >= K ? count : -1;
+  return heap[0] >= K ? count : -1;
 }
-
-console.log(solution([1, 2, 3, 9, 10, 12], 7)); // 2
