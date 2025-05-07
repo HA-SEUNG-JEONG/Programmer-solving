@@ -2,9 +2,15 @@ class MinHeap {
   constructor() {
     this.heap = [];
   }
-  getParentIndex(i) { return Math.floor((i - 1) / 2); }
-  getLeftChildIndex(i) { return i * 2 + 1; }
-  getRightChildIndex(i) { return i * 2 + 2; }
+  getParentIndex(i) {
+    return Math.floor((i - 1) / 2);
+  }
+  getLeftChildIndex(i) {
+    return i * 2 + 1;
+  }
+  getRightChildIndex(i) {
+    return i * 2 + 2;
+  }
   swap(i, j) {
     [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
@@ -67,3 +73,5 @@ function solution(scoville, K) {
   }
   return heap.peek() >= K ? count : -1;
 }
+
+console.log(solution([1, 2, 3, 9, 10, 12], 7)); // 2
