@@ -1,8 +1,9 @@
+// BFS 
 function solution(x, y, n) {
     if (x === y) return 0;
     
     let result = 0;
-    let queue = [y];  // Start from y and work backwards
+    let queue = [y];  
     let visited = new Set([y]);
 
     while (queue.length > 0) {
