@@ -3,13 +3,12 @@ function solution(files) {
         // 정규표현식으로 HEAD, NUMBER, TAIL 분리
         const match = fileName.match(/^([^0-9]+)([0-9]{1,5})(.*)$/i);
         if (!match) {
-            // 숫자가 없는 경우 (문제 조건상 없을 수 있지만 안전장치)
             return { head: fileName.toLowerCase(), number: 0, index, original: fileName };
         }
         const [_, head, number, tail] = match;
         return {
             head: head.toLowerCase(),
-            number: parseInt(number, 10),
+            number: Number(number),
             index,
             original: fileName
         };
