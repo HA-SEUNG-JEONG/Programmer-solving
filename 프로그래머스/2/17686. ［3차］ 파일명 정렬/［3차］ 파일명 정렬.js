@@ -1,14 +1,28 @@
 function solution(files) {
     const parseFileName = (fileName, index) => {
         // 정규표현식으로 HEAD, NUMBER, TAIL 분리
-        const match = fileName.match(/^([^0-9]+)([0-9]{1,5})(.*)$/i);
-        if (!match) {
-            return { head: fileName.toLowerCase(), number: 0, index, original: fileName };
+        let head = '';
+        let number = '';
+        let i = 0;
+        
+        // 1. HEAD 부분 추출 (숫자가 나오기 전까지)
+        while (i < fileName.length && isNaN(parseInt(fileName[i]))) {
+            head += fileName[i];
+            i++;
         }
-        const [_, head, number, tail] = match;
+        // 2. NUMBER 부분 추출 (최대 5자리)
+        let numCount = 0;
+        while (i < fileName.length && numCount < 5 && !isNaN(parseInt(fileName[i]))) {
+            number += fileName[i];
+            i++;
+            numCount++;
+        }
+        
+        // 3. 나머지는 TAIL (파싱할 필요 없음)
+        
         return {
             head: head.toLowerCase(),
-            number: Number(number),
+            number: number ? Number(number) : 0,
             index,
             original: fileName
         };
