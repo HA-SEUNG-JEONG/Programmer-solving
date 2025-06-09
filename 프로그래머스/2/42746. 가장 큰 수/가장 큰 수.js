@@ -1,35 +1,28 @@
 function solution(numbers) {
     // 숫자를 문자열로 변환
     const strNums = numbers.map(String);
-    const mergeSort = (arr) => {
+
+    // 퀵소트 구현
+    const quickSort = (arr) => {
         if (arr.length <= 1) return arr;
 
-        const mid = Math.floor(arr.length / 2);
-        const left = mergeSort(arr.slice(0, mid));
-        const right = mergeSort(arr.slice(mid));
+        const pivot = arr[0];
+        const left = [];
+        const right = [];
 
-        return merge(left, right);
-    };
-
-    // 병합 함수
-    const merge = (left, right) => {
-        const result = [];
-        let i = 0,
-            j = 0;
-
-        while (i < left.length && j < right.length) {
-            // b+a와 a+b를 비교
-            if (left[i] + right[j] > right[j] + left[i]) {
-                result.push(left[i++]);
+        for (let i = 1; i < arr.length; i++) {
+            // b+a와 a+b를 비교하여 정렬
+            if (arr[i] + pivot > pivot + arr[i]) {
+                left.push(arr[i]);
             } else {
-                result.push(right[j++]);
+                right.push(arr[i]);
             }
         }
 
-        return [...result, ...left.slice(i), ...right.slice(j)];
+        return [...quickSort(left), pivot, ...quickSort(right)];
     };
 
-    const sorted = mergeSort(strNums);
+    const sorted = quickSort(strNums);
     const result = sorted.join("");
 
     return result[0] === "0" ? "0" : result;
