@@ -4,9 +4,20 @@ function solution(arr) {
     // let zeroCount = 0;
     // let oneCount = 0;
     const result = [0, 0];
+    
+    const memo = new Map();
+    
+    const getKey = (x,y,size) => `${x},${y},${size}`
 
     const compress = (x, y, size) => {
         const first = arr[x][y];
+        const key = getKey(x,y,size);
+        if (memo.has(key)) {
+            const [zeros, ones] = memo.get(key);
+            result[0] += zeros;
+            result[1] += ones;
+            return;
+        }
         let isSame = true;
 
         for (let i = x; i < x + size; i++) {
