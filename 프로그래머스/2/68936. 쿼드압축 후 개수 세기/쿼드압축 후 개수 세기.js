@@ -32,16 +32,22 @@ function solution(arr) {
 
         if (isSame) {
             result[first]++;
+            memo.set(key, first === 0 ? [1, 0] : [0, 1]);
             return;
         }
 
         const half = size / 2;
+        const subResults = [[0, 0], [0, 0], [0, 0], [0, 0]];
+        
         compress(x, y, half);
         compress(x, y + half, half);
         compress(x + half, y, half);
         compress(x + half, y + half, half);
+        
+        const totalZeros = subResults.reduce((sum, [z, _]) => sum + z, 0);
+    const totalOnes = subResults.reduce((sum, [_, o]) => sum + o, 0);
+    memo.set(key, [totalZeros, totalOnes]);
     };
-    // arr를 순회
     compress(0, 0, arr.length);
     return result;
 }
