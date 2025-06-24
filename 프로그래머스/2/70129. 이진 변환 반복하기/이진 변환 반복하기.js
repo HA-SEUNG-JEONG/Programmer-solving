@@ -1,31 +1,17 @@
 function solution(s) {
-    let transformCount = 0;
-    let zeroCount = 0;
-    
-//     while(s !== '1'){
-//         const splitted = s.split('0').join("");
-//         const transform = Number(splitted.length).toString(2);
-//         // console.log(transform)
-//         // if(splitted === 1){
-//         //     break;
-//         // }
-//         console.log(splitted)
-//         console.log(transform)
+    // 이진 변환하기
+    let count = 0; // 이진 변환의 횟수
+    let zeroCount = 0; // 제거된 0의 개수
+    // s가 '1'이 될때까지 s에 이진변환 가하기
+    while (s !== "1") {
+        // 1. s의 모든 0 제거하기
+        const removedZero = s.replace(/0/g, "");
+        zeroCount += s.length - removedZero.length;
 
-//     }
-    
-    while(s !== '1'){
-        const beforeLength = s.length;
-        s = s.split('0').join('');
-        
-        zeroCount += beforeLength - s.length;
-        
-        s = s.length.toString(2);
-        transformCount++;
+        // 2. s의 길이를 c라고 하면, x를 "c를 2진법으로 표현한 문자열"로 바꿉니다.
+        s = removedZero.length.toString(2);
+
+        count++;
     }
-    
-    return [transformCount, zeroCount];
-    
-
-    
+    return [count, zeroCount];
 }
