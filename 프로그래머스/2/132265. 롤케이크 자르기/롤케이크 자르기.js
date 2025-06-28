@@ -1,8 +1,10 @@
 function solution(topping) {
     const leftCount = {};
     const rightCount = {};
+    
     let leftUnique = 0;
     let rightUnique = 0;
+    
     let result = 0;
 
     // 오른쪽 맵 초기화
