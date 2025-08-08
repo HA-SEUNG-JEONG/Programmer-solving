@@ -1,9 +1,6 @@
 function solution(m, musicinfos) {
     const replaceSharps = (melody) => {
-        const sharpMap = {
-            'C#': 'c', 'D#': 'd', 'F#': 'f', 
-            'G#': 'g', 'A#': 'a', 'B#': 'b'  // B# 추가
-        };
+        const sharpMap = { 'C#': 'c', 'D#': 'd', 'F#': 'f', 'G#': 'g', 'A#': 'a', 'B#': 'b' };
         return melody.replace(/C#|D#|F#|G#|A#|B#/g, (match) => sharpMap[match]);
     }
     

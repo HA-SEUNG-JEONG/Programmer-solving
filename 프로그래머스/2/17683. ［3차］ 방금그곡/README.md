@@ -1,10 +1,10 @@
 # [level 2] [3차] 방금그곡 - 17683 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17683?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17683) 
 
 ### 성능 요약
 
-메모리: 34.1 MB, 시간: 2.75 ms
+메모리: 34 MB, 시간: 2.83 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 08월 06일 23:14:54
+2025년 08월 08일 20:05:59
 
 ### 문제 설명
 
