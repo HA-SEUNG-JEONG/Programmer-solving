@@ -1,16 +1,10 @@
 function solution(land) {
-  for (let currentRow = 1; currentRow < land.length; currentRow++) {
-    for (let currentCol = 0; currentCol < 4; currentCol++) {
-      let maxPrevScore = 0;
-      for (let prevCol = 0; prevCol < 4; prevCol++) {
-        if (prevCol !== currentCol) {
-          maxPrevScore = Math.max(maxPrevScore, land[currentRow - 1][prevCol]);
+    const n = land.length;
+    
+    for(let i=1;i<n;i++){
+        for(let j=0;j<4;j++){
+            land[i][j] += Math.max(...land[i-1].filter((_,i) => i !== j))
         }
-      }
-
-      land[currentRow][currentCol] += maxPrevScore;
     }
-  }
-
-  return Math.max(...land[land.length - 1]);
+    return Math.max(...land.at(-1))
 }
